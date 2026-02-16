@@ -25,17 +25,19 @@
 ---
 
 ## 📂 Project Anatomy
+
 ```text
-discord-productivity-bot/
-├── 🛸 lavalink/             # Audio Engine (Lavalink.jar & Plugins)
+├── 🛸 lavalink/             # Server audio & configuration
 ├── 📂 src/
-│   ├── ⚔️ commands/         # Core Slash Commands (Music, etc.)
-│   ├── 🧬 interfaces/       # Type Definitions
-│   ├── 🧠 services/         # Business Logic (QueueManager)
-│   ├── 🏗️ struct/           # Bot Client Structure
-│   └── 🚀 index.ts          # Application Entry Point
-├── 🔐 .env                  # Secrets & Tokens
-└── ⚙️ tsconfig.json         # TS Configuration
+│   ├── ⚔️ commands/         # Slash Command handler
+│   │   ├── 🎵 music/        # play.ts, skip.ts, stop.ts
+│   │   └── 📈 productivity/ # (Next: Pomodoro, Todo list?)
+│   ├── 📅 events/           # (Next: Event handler for trackStart, trackEnd)
+│   ├── 🧬 interfaces/       # Command.ts
+│   ├── 🧠 services/         # QueueManager.ts
+│   ├── 🏗️ struct/           # BotClient.ts
+│   ├── 🛠️ utils/            # config.ts
+│   └── 🚀 index.ts          # Entry point
 
 ```
 
@@ -109,5 +111,34 @@ npm run dev
 <p align="center">
 <i>Developed with ❤️ for productivity and music lovers.</i>
 </p>
+
+---
+
+### 📝 The Next Steps (Development Plan)
+
+#### 1. Implementasi Otomatisasi Antrian (`index.ts` & `events`)
+
+* **Target:** Supaya pas lagu selesai, bot otomatis muter lagu berikutnya tanpa lu suruh.
+* **Action:** Update `index.ts` untuk dengerin event `trackEnd` dari Shoukaku dan ambil data dari `QueueManager`.
+
+#### 2. Menambah Fitur `/next` (Add to Queue)
+
+* **Target:** Nambahin lagu ke antrian tanpa memutus lagu yang lagi jalan.
+* **Action:** Buat file `src/commands/music/next.ts`.
+
+#### 3. Fitur `/queue` (View List)
+
+* **Target:** Biar lu bisa liat ada lagu apa aja yang lagi nunggu.
+* **Action:** Buat file `src/commands/music/queue.ts` yang bakal narik data dari `QueueManager`.
+
+#### 4. Enhancing UI (Embeds)
+
+* **Target:** Balesan bot nggak cuma teks polosan, tapi pake **Discord Embed** (ada poster lagu, durasi, dan siapa yang request).
+* **Action:** Update semua command musik buat pake `EmbedBuilder`.
+
+#### 5. Productivity Side (The "Productivity" Bot)
+
+* **Target:** Sesuai nama folder lu, kita mulai masuk ke fitur produktivitas.
+* **Action:** Bikin `/pomodoro` atau `/reminder` di folder `productivity`.
 
 ---
