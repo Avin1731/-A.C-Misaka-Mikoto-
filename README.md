@@ -110,4 +110,4 @@ npm run dev
 <i>Developed with ❤️ for productivity and music lovers.</i>
 </p>
 
-```
+---
