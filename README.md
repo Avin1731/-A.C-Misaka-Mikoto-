@@ -1,11 +1,28 @@
-# ⚡ -A.C-Misaka-Mikoto- ⚡
-> ### *“My Lovely Bot – The Ultimate Railgun for Your Discord Productivity & Music Experience.”*
+<h1 align="center">⚡ [A.C] Misaka Mikoto ~ ⚡</h1>
+
+<p align="center">
+  <em>“My Lovely Bot – The Ultimate Railgun for Your Discord Productivity & Music Experience.”</em>
+</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="Maintained">
   <img src="https://img.shields.io/badge/TypeScript-Ready-blue.svg" alt="TypeScript">
   <img src="https://img.shields.io/badge/Lavalink-v4.1.2-orange.svg" alt="Lavalink">
   <img src="https://img.shields.io/badge/Shoukaku-v4-red.svg" alt="Shoukaku">
+</p>
+
+<p align="center">
+  <b>Connect with the Developers:</b><br><br>
+  <a href="https://github.com/avin1731">
+    <img src="https://img.shields.io/badge/⚡%20Developer-Avin1731-blueviolet?style=for-the-badge&logo=github" />
+  </a>&nbsp;
+  <a href="https://github.com/Xte-1412">
+    <img src="https://img.shields.io/badge/⚡%20Developer-Xte--1412-444?style=for-the-badge&logo=github" />
+  </a>
+</p>
+
+<p align="center">
+  <i>"Developed with ❤️ for productivity and music lovers."</i>
 </p>
 
 ---
@@ -54,14 +71,11 @@
 
 ```
 
-
 3. Jalankan mesin:
 ```bash
 java -jar Lavalink.jar
 
 ```
-
-
 
 ### 2. Otak Bot (Node.js)
 
@@ -71,21 +85,17 @@ npm install
 
 ```
 
-
 2. Setup Environment:
 ```env
 DISCORD_TOKEN=your_top_secret_token
 
 ```
 
-
 3. Jalankan bot:
 ```bash
 npm run dev
 
 ```
-
-
 
 ---
 
@@ -105,12 +115,6 @@ npm run dev
 * ✅ **Error 400 Bad Request:** Resolved via manual payload wrapping for Lavalink v4.
 * ✅ **Silent Audio:** Fixed by implementing `libsodium-wrappers` and `opusscript`.
 * ✅ **YouTube Signature Error:** Fixed by upgrading to YouTube-Source v1.17.0.
-
----
-
-<p align="center">
-<i>Developed with ❤️ for productivity and music lovers.</i>
-</p>
 
 ---
 
