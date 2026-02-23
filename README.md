@@ -5,6 +5,7 @@
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Status-In%20Development%20(Coming%20Soon)-yellow.svg" alt="Status">
   <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="Maintained">
   <img src="https://img.shields.io/badge/TypeScript-Ready-blue.svg" alt="TypeScript">
   <img src="https://img.shields.io/badge/Lavalink-v4.1.2-orange.svg" alt="Lavalink">
@@ -27,6 +28,10 @@
 
 ---
 
+> ⚠️ **PEMBERITAHUAN:** Bot ini masih dalam tahap **Active Development** dan belum dirilis secara publik. Pantau terus *repository* ini untuk *update* perilisan resminya. *Coming soon and stay tuned!*
+
+---
+
 ## 🎵 Overview
 **Misaka Mikoto** bukan sekadar bot musik biasa. Dibangun dengan arsitektur **TypeScript** yang modular, bot ini menggunakan **Lavalink v4** sebagai jantung audionya. Dirancang untuk stabilitas tinggi, respon cepat, dan kemampuan bypass algoritma YouTube terbaru.
 
@@ -34,10 +39,10 @@
 
 ## 🚀 Fitur Utama
 * **⚡ High-Voltage Streaming:** Kualitas audio jernih tanpa buffering.
-* **📜 Smart Queue:** Sistem antrian cerdas dengan fitur interupsi lagu.
+* **📜 Smart Queue & Standby Mode:** Sistem antrian cerdas yang mengalir mulus, lengkap dengan status *Standby* saat bot menganggur di Voice Channel.
 * **🛠️ Modular Engine:** Command handler yang rapi, memudahkan skalabilitas fitur.
 * **🛡️ Anti-Block System:** Menggunakan plugin YouTube terbaru (v1.17.0+) untuk menjamin kelancaran playback.
-* **🤖 Slash Command Powered:** UI modern menggunakan interaksi resmi Discord.
+* **🤖 Slash Command Powered:** UI modern menggunakan interaksi resmi Discord (Embeds & Visual Progress Bar).
 
 ---
 
@@ -47,9 +52,9 @@
 ├── 🛸 lavalink/             # Server audio & configuration
 ├── 📂 src/
 │   ├── ⚔️ commands/         # Slash Command handler
-│   │   ├── 🎵 music/        # play.ts, skip.ts, stop.ts
+│   │   ├── 🎵 music/        # play, skip, stop, next, queue, nowplaying, invite, bye, info
 │   │   └── 📈 productivity/ # (Next: Pomodoro, Todo list?)
-│   ├── 📅 events/           # (Next: Event handler for trackStart, trackEnd)
+│   ├── 📅 events/           # Client & Node event handlers
 │   ├── 🧬 interfaces/       # Command.ts
 │   ├── 🧠 services/         # QueueManager.ts
 │   ├── 🏗️ struct/           # BotClient.ts
@@ -66,12 +71,14 @@
 
 1. Pastikan **Java 17/21** sudah terpasang.
 2. Edit `lavalink/application.yml` dan pastikan plugin terbaru aktif:
+
 ```yaml
 - dependency: "dev.lavalink.youtube:youtube-plugin:1.17.0"
 
 ```
 
 3. Jalankan mesin:
+
 ```bash
 java -jar Lavalink.jar
 
@@ -80,18 +87,21 @@ java -jar Lavalink.jar
 ### 2. Otak Bot (Node.js)
 
 1. Install dependencies:
+
 ```bash
 npm install
 
 ```
 
 2. Setup Environment:
+
 ```env
 DISCORD_TOKEN=your_top_secret_token
 
 ```
 
 3. Jalankan bot:
+
 ```bash
 npm run dev
 
@@ -103,10 +113,22 @@ npm run dev
 
 | Trigger | Action | Impact |
 | --- | --- | --- |
-| `/play` | **Instant Play** | Memutar lagu & mereset antrian |
-| `/next` | **Add Queue** | Menambahkan lagu ke daftar tunggu |
-| `/skip` | **Skip Track** | Melewati lagu yang sedang aktif |
-| `/stop` | **Terminate** | Menghentikan musik & keluar dari Voice |
+| `/play` | **Instant Play** | Memutar lagu langsung & mereset antrian |
+| `/next` | **Add Queue** | Menambahkan lagu ke dalam antrian berikutnya |
+| `/skip` | **Skip Track** | Melewati lagu saat ini dan memutar antrian selanjutnya |
+| `/stop` | **Standby Mode** | Menghentikan musik, hapus antrian, masuk Mode Standby 🟢 |
+| `/queue` | **View List** | Menampilkan daftar antrian lagu saat ini |
+| `/nowplaying` | **Track Info** | Menampilkan detail lagu dan *progress bar* |
+| `/invite` | **Summon Bot** | Memanggil bot ke Voice Channel untuk *Standby* |
+| `/bye` | **Terminate** | Mengeluarkan bot dari VC & membersihkan memori |
+| `/info` | **Command Center** | Menampilkan panel informasi seluruh komando bot |
+
+---
+
+## 🔄 Update History (Changelog)
+
+* **v1.0.2** - *Smart Queue & Standby Integration:* Implemented queue system & standby mode, added `/next`, `/queue`, `/nowplaying`, `/invite`, `/bye`, `/info`, and updated logic for existing music controls.
+* **v1.0.1** - *Core Initialization:* Setup initial bot architecture with Lavalink and base music system.
 
 ---
 
@@ -115,34 +137,33 @@ npm run dev
 * ✅ **Error 400 Bad Request:** Resolved via manual payload wrapping for Lavalink v4.
 * ✅ **Silent Audio:** Fixed by implementing `libsodium-wrappers` and `opusscript`.
 * ✅ **YouTube Signature Error:** Fixed by upgrading to YouTube-Source v1.17.0.
+* ✅ **Automated Queue System:** Implemented `QueueManager` and integrated `end` event listeners to auto-play queued tracks.
+* ✅ **Standby Architecture:** Separated the `/stop` logic (idle in VC) from `/bye` (disconnect). Handled empty queues gracefully by forcing memory wipe (`encoded: null`).
+* ✅ **Lavalink Track Decoding:** Resolved TypeScript errors in Shoukaku v4 by implementing `node.rest.decode(player.track)` to safely fetch song titles and durations.
+* ✅ **UI Enhancements:** Migrated responses to Discord EmbedBuilder to provide a premium user experience.
 
 ---
 
-### 📝 The Next Steps (Development Plan)
+### 🚀 The Next Steps (Development Plan)
 
-#### 1. Implementasi Otomatisasi Antrian (`index.ts` & `events`)
+#### 1. Productivity Side (The Core Identity)
 
-* **Target:** Supaya pas lagu selesai, bot otomatis muter lagu berikutnya tanpa lu suruh.
-* **Action:** Update `index.ts` untuk dengerin event `trackEnd` dari Shoukaku dan ambil data dari `QueueManager`.
+* **Target:** Karena nama bot ini mengandung unsur "productivity", kita perlu fitur untuk menemani user fokus bekerja/belajar.
+* **Action:** Buat sistem timer `/pomodoro` (25 menit kerja, 5 menit istirahat) lengkap dengan notifikasi suara saat waktu habis.
 
-#### 2. Menambah Fitur `/next` (Add to Queue)
+#### 2. Auto-Disconnect System (Save Resources)
 
-* **Target:** Nambahin lagu ke antrian tanpa memutus lagu yang lagi jalan.
-* **Action:** Buat file `src/commands/music/next.ts`.
+* **Target:** Bot tidak boleh terus-terusan diam di VC jika semua orang sudah keluar atau tidak ada lagu selama kelamaan.
+* **Action:** Buat *timer* otomatis di Mode Standby. Jika tidak ada aktivitas selama 5 menit, bot akan otomatis mengeksekusi fungsi `/bye`.
 
-#### 3. Fitur `/queue` (View List)
+#### 3. Multi-Source Integrations
 
-* **Target:** Biar lu bisa liat ada lagu apa aja yang lagi nunggu.
-* **Action:** Buat file `src/commands/music/queue.ts` yang bakal narik data dari `QueueManager`.
+* **Target:** Supaya user tidak hanya bisa nge-*play* dari YouTube, tapi juga dari *platform* lain.
+* **Action:** Mengaktifkan dan mengonfigurasi plugin **Spotify** atau **SoundCloud** di `application.yml` milik Lavalink.
 
-#### 4. Enhancing UI (Embeds)
+#### 4. Fitur Lirik Lagu
 
-* **Target:** Balesan bot nggak cuma teks polosan, tapi pake **Discord Embed** (ada poster lagu, durasi, dan siapa yang request).
-* **Action:** Update semua command musik buat pake `EmbedBuilder`.
-
-#### 5. Productivity Side (The "Productivity" Bot)
-
-* **Target:** Sesuai nama folder lu, kita mulai masuk ke fitur produktivitas.
-* **Action:** Bikin `/pomodoro` atau `/reminder` di folder `productivity`.
+* **Target:** Menampilkan lirik dari lagu yang sedang diputar.
+* **Action:** Integrasi API lirik pihak ketiga (seperti Ksoft atau Lyrical) via command `/lyrics`.
 
 ---
